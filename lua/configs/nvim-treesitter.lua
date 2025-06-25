@@ -15,6 +15,7 @@ local options = {
     "markdown",
     "c",
     "xml",
+    "dockerfile",
   },
   highlight = {
     enable = true,
