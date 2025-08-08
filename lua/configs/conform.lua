@@ -3,6 +3,7 @@ local options = {
     lua = { "lua_ls", "stylua" },
     css = { "prettier" },
     html = { "prettier" },
+    markdown = { "prettier" },
     -- python = { "isort", "black" },
     python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     sql = { "sql-formatter" },
