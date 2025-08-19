@@ -1,6 +1,15 @@
 require "nvchad.options"
 
--- add yours here!
+local options = {
+  colorcolumn = "80",
+  rnu = true,
+  foldmethod = "indent",
+  wrap = false,
+  foldlevelstart = 99,
+  scrolloff = 8,
+  swapfile = false,
+}
 
--- local o = vim.o
--- o.cursorlineopt ='both' -- to enable cursorline!
+for k, v in pairs(options) do
+  vim.opt[k] = v
+end
