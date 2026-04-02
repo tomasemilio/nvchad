@@ -19,7 +19,7 @@ return {
       quit_on_focus_loss = true,
       open_win_config = {
         relative = "editor",
-        border = true,
+        border = "rounded",
         width = win_width,
         height = win_height,
         row = math.floor((vim.o.lines - win_height) / 2),

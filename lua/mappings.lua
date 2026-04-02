@@ -30,7 +30,7 @@ map("n", "<leader>dl", "<cmd> DiffviewOpen ..HEAD~ <cr>", { desc = "DiffView vs 
 -- Terminal
 map("t", "<Esc>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })
 map({ "n", "t", "i" }, "<C-\\>", function()
-  vim.cmd ":wa"
+  vim.cmd "silent! wa"
   require("nvchad.term").toggle {
     pos = "bo sp",
     id = "htoggleTerm",
