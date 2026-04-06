@@ -3,6 +3,7 @@ local servers = {
   "cssls",
   "ts_ls",
   "sqlls",
+  "pyright",
 }
 
 -- Store for mason-lspconfig to read
