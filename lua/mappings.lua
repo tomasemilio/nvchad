@@ -7,7 +7,7 @@ local map = vim.keymap.set
 -- General
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
-map({ "n", "i", "v" }, "<C-s>", "<cmd> wa <cr>")
+map({ "n", "i", "v" }, "<C-s>", "<cmd> silent! wa <cr>")
 map("n", "<C-u>", "<C-u>zz")
 map("n", "<C-d>", "<C-d>zz")
 map("v", ">", ">gv", { noremap = true, silent = true, desc = "Indent line(s) and keep selection" })

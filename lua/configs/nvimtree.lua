@@ -1,9 +1,5 @@
 dofile(vim.g.base46_cache .. "nvimtree")
 
--- Calculate responsive dimensions (80% of screen with min/max bounds)
-local win_width = math.min(math.max(math.floor(vim.o.columns * 0.8), 60), 120)
-local win_height = math.min(math.max(math.floor(vim.o.lines * 0.8), 20), 40)
-
 return {
   filters = { dotfiles = false },
   disable_netrw = true,
@@ -17,14 +13,18 @@ return {
     float = {
       enable = true,
       quit_on_focus_loss = true,
-      open_win_config = {
-        relative = "editor",
-        border = "rounded",
-        width = win_width,
-        height = win_height,
-        row = math.floor((vim.o.lines - win_height) / 2),
-        col = math.floor((vim.o.columns - win_width) / 2),
-      },
+      open_win_config = function()
+        local w = math.min(math.max(math.floor(vim.o.columns * 0.8), 60), 120)
+        local h = math.min(math.max(math.floor(vim.o.lines * 0.8), 20), 40)
+        return {
+          relative = "editor",
+          border = "rounded",
+          width = w,
+          height = h,
+          row = math.floor((vim.o.lines - h) / 2),
+          col = math.floor((vim.o.columns - w) / 2),
+        }
+      end,
     },
   },
   renderer = {

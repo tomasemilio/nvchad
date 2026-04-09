@@ -1,20 +1,11 @@
 local lint = package.loaded["lint"]
 
-local ignore_install = {}
-
-local function table_contains(table, value)
-  for _, v in ipairs(table) do
-    if v == value then
-      return true
-    end
-  end
-  return false
-end
-
+local seen = {}
 local all_linters = {}
 for _, v in pairs(lint.linters_by_ft) do
   for _, linter in ipairs(v) do
-    if not table_contains(ignore_install, linter) then
+    if not seen[linter] then
+      seen[linter] = true
       table.insert(all_linters, linter)
     end
   end
