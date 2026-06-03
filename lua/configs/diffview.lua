@@ -7,14 +7,12 @@ local options = {
   file_panel = {
     win_config = {
       position = "bottom", -- This places the file selection panel at the bottom
-      width = 35,
       height = 10,
     },
   },
   file_history_panel = {
     win_config = {
       position = "bottom",
-      width = 35,
       height = 10,
     },
   },

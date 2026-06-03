@@ -19,13 +19,18 @@ map("n", "<leader>gr", "<cmd> Telescope lsp_references <cr>", { desc = "Telescop
 map("n", "<leader>dg", "<cmd> Telescope diagnostics <cr>", { desc = "Telescope Diagnostics" })
 map("n", "<leader>re", "<cmd> Telescope registers <cr>", { desc = "Telescope Registers" })
 
+-- Gitsigns
+map("n", "<leader>ph", "<cmd>Gitsigns preview_hunk<cr>", { desc = "Gitsigns Preview Hunk" })
+map("n", "<leader>rh", "<cmd>Gitsigns reset_hunk<cr>", { desc = "Gitsigns Reset Hunk" })
+map("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>", { desc = "Gitsigns Blame Line" })
+
 -- Diffview
 map("n", "<leader>dv", "<cmd> DiffviewOpen <cr>", { desc = "DiffView Open" })
 map("n", "<leader>dc", "<cmd> DiffviewClose <cr>", { desc = "DiffView Close" })
 map("n", "<leader>dh", "<cmd> DiffviewFileHistory <cr>", { desc = "DiffView History" })
 map("n", "<leader>dH", "<cmd> DiffviewFileHistory %<cr>", { desc = "DiffView Buffer History" })
-map("n", "<leader>dm", "<cmd> DiffviewOpen ..main <cr>", { desc = "DiffView vs main" })
-map("n", "<leader>dl", "<cmd> DiffviewOpen ..HEAD~ <cr>", { desc = "DiffView vs last" })
+map("n", "<leader>dm", "<cmd> DiffviewOpen main...HEAD <cr>", { desc = "DiffView vs main" })
+map("n", "<leader>dl", "<cmd> DiffviewOpen HEAD~..HEAD <cr>", { desc = "DiffView vs last" })
 
 -- Terminal
 map("t", "<Esc>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })

@@ -4,4 +4,5 @@ return {
   "ts_ls",
   "sqlls",
   "pyright",
+  "lua_ls",
 }

@@ -1,4 +1,4 @@
-local lint = package.loaded["lint"]
+local lint = require "lint"
 
 local seen = {}
 local all_linters = {}
