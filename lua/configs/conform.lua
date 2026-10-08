@@ -4,7 +4,8 @@ local options = {
     css = { "prettier" },
     html = { "prettier" },
     markdown = { "prettier" },
-    python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+    -- no ruff_fix: it deletes unused imports on save while you're mid-edit
+    python = { "ruff_organize_imports", "ruff_format" },
     sql = { "sql_formatter" },
     javascript = { "prettier" },
   },

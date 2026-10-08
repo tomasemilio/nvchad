@@ -29,7 +29,12 @@ map("n", "<leader>dv", "<cmd> DiffviewOpen <cr>", { desc = "DiffView Open" })
 map("n", "<leader>dc", "<cmd> DiffviewClose <cr>", { desc = "DiffView Close" })
 map("n", "<leader>dh", "<cmd> DiffviewFileHistory <cr>", { desc = "DiffView History" })
 map("n", "<leader>dH", "<cmd> DiffviewFileHistory %<cr>", { desc = "DiffView Buffer History" })
-map("n", "<leader>dm", "<cmd> DiffviewOpen main...HEAD <cr>", { desc = "DiffView vs main" })
+map("n", "<leader>dm", function()
+  -- origin's default branch (main, master, develop...), falling back to main
+  local ref = vim.fn.systemlist("git symbolic-ref --short refs/remotes/origin/HEAD")[1]
+  local branch = vim.v.shell_error == 0 and ref:gsub("^origin/", "") or "main"
+  vim.cmd("DiffviewOpen " .. branch .. "...HEAD")
+end, { desc = "DiffView vs default branch" })
 map("n", "<leader>dl", "<cmd> DiffviewOpen HEAD~..HEAD <cr>", { desc = "DiffView vs last" })
 
 -- Terminal

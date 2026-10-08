@@ -1,21 +1,22 @@
-local parsers = {
-  "vim",
-  "lua",
-  "vimdoc",
-  "html",
-  "css",
-  "python",
-  "sql",
-  "json",
-  "javascript",
-  "bash",
-  "toml",
-  "yaml",
-  "markdown",
-  "c",
-  "xml",
-  "dockerfile",
+return {
+  ensure_installed = {
+    "vim",
+    "lua",
+    "luadoc",
+    "printf",
+    "vimdoc",
+    "html",
+    "css",
+    "python",
+    "sql",
+    "json",
+    "javascript",
+    "bash",
+    "toml",
+    "yaml",
+    "markdown",
+    "c",
+    "xml",
+    "dockerfile",
+  },
 }
-
-require("nvim-treesitter").install(parsers)
-

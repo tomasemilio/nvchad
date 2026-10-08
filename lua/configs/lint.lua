@@ -6,7 +6,7 @@ lint.linters_by_ft = {
 
 local lint_augroup = vim.api.nvim_create_augroup("UserLint", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
   group = lint_augroup,
   callback = function()
     lint.try_lint()
