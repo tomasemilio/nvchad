@@ -3,6 +3,6 @@ return {
   "cssls",
   "ts_ls",
   "sqlls",
-  "pyright",
+  "ty",
   "lua_ls",
 }
