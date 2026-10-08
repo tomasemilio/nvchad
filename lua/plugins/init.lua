@@ -65,16 +65,9 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    event = "VeryLazy",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
     opts = function()
       return require "configs.diffview"
-    end,
-  },
-  {
-    "adelarsq/image_preview.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("image_preview").setup()
     end,
   },
   {
