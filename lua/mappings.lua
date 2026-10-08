@@ -23,6 +23,10 @@ map("n", "<leader>re", "<cmd> Telescope registers <cr>", { desc = "Telescope Reg
 map("n", "<leader>ph", "<cmd>Gitsigns preview_hunk<cr>", { desc = "Gitsigns Preview Hunk" })
 map("n", "<leader>rh", "<cmd>Gitsigns reset_hunk<cr>", { desc = "Gitsigns Reset Hunk" })
 map("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>", { desc = "Gitsigns Blame Line" })
+map("n", "]h", "<cmd>Gitsigns nav_hunk next<cr>", { desc = "Gitsigns Next Hunk" })
+map("n", "[h", "<cmd>Gitsigns nav_hunk prev<cr>", { desc = "Gitsigns Prev Hunk" })
+-- on an already-staged hunk this unstages it
+map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<cr>", { desc = "Gitsigns Stage/Unstage Hunk" })
 
 -- Diffview
 map("n", "<leader>dv", "<cmd> DiffviewOpen <cr>", { desc = "DiffView Open" })

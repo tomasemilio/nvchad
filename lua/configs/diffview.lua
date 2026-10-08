@@ -1,4 +1,6 @@
 local options = {
+  -- removed lines show red on the old (left) side instead of green
+  enhanced_diff_hl = true,
   view = {
     default = {
       layout = "diff2_horizontal", -- This places diff views side by side (left and right)
