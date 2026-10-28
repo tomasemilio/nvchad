@@ -29,7 +29,7 @@ This is a Neovim configuration based on NvChad v2.5. The configuration follows N
 - **Formatting**: Conform.nvim with Mason integration (`configs/conform.lua`)
 - **Linting**: nvim-lint with Mason integration (`configs/lint.lua`)
 - **File Navigation**: Telescope.nvim and nvim-tree
-- **Git Integration**: diffview.nvim for git diffs and history
+- **Git Integration**: gitsigns.nvim (bundled with NvChad) for hunks and unified diffs
 - **Syntax Highlighting**: nvim-treesitter
 
 ## Plugin Configuration Pattern
@@ -46,8 +46,12 @@ The configuration uses Mason for automatic installation of LSP servers, formatte
 ## Key Mappings
 
 - `<C-b>` - Telescope find files
-- `<leader>dv` - Open DiffView
-- `<leader>dm` - DiffView vs main branch
+- `<leader>df` - Toggle unified diff for the current file
+- `<leader>dv` - Unified diff panel of all changes
+- `<leader>dm` - Unified diff panel vs default branch
+- `<leader>dl` - Unified diff panel of the last commit
+- `<leader>dc` - Close the diff panel
+- `<leader>dH` - Git blame for the current buffer
 - `<C-\>` - Toggle terminal with auto-save
 - `jk` - Exit insert mode
 

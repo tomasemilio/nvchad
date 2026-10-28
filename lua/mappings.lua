@@ -28,18 +28,68 @@ map("n", "[h", "<cmd>Gitsigns nav_hunk prev<cr>", { desc = "Gitsigns Prev Hunk" 
 -- on an already-staged hunk this unstages it
 map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<cr>", { desc = "Gitsigns Stage/Unstage Hunk" })
 
--- Diffview
-map("n", "<leader>dv", "<cmd> DiffviewOpen <cr>", { desc = "DiffView Open" })
-map("n", "<leader>dc", "<cmd> DiffviewClose <cr>", { desc = "DiffView Close" })
-map("n", "<leader>dh", "<cmd> DiffviewFileHistory <cr>", { desc = "DiffView History" })
-map("n", "<leader>dH", "<cmd> DiffviewFileHistory %<cr>", { desc = "DiffView Buffer History" })
+-- origin's default branch (origin/main, origin/master, ...) in the current file's repo,
+-- since that's the repo gitsigns diffs; falls back to whichever main/master exists
+local function default_branch()
+  local dir = vim.fn.expand "%:p:h"
+  if vim.fn.isdirectory(dir) == 0 then
+    dir = vim.fn.getcwd()
+  end
+  local function git(...)
+    local out = vim.fn.systemlist { "git", "-C", dir, ... }
+    return vim.v.shell_error == 0 and out[1] or nil
+  end
+  local ref = git("symbolic-ref", "--short", "refs/remotes/origin/HEAD")
+  if ref then
+    return ref
+  end
+  for _, branch in ipairs { "origin/main", "origin/master", "main", "master" } do
+    if git("rev-parse", "--verify", "--quiet", branch) then
+      return branch
+    end
+  end
+end
+
+-- Unified diffs: one buffer, added lines green, removed lines inline in red
+-- (require rather than :Gitsigns, which doesn't exist until gitsigns lazy-loads)
+map("n", "<leader>df", function()
+  require("gitsigns").diffthis(nil, { unified = true })
+end, { desc = "Gitsigns Toggle unified diff (file)" })
+map("n", "<leader>dv", function()
+  require("gitsigns").diff(nil, nil, { diff = "unified" })
+end, { desc = "Gitsigns Unified diff (all changes)" })
 map("n", "<leader>dm", function()
-  -- origin's default branch (main, master, develop...), falling back to main
-  local ref = vim.fn.systemlist("git symbolic-ref --short refs/remotes/origin/HEAD")[1]
-  local branch = vim.v.shell_error == 0 and ref:gsub("^origin/", "") or "main"
-  vim.cmd("DiffviewOpen " .. branch .. "...HEAD")
-end, { desc = "DiffView vs default branch" })
-map("n", "<leader>dl", "<cmd> DiffviewOpen HEAD~..HEAD <cr>", { desc = "DiffView vs last" })
+  local base = default_branch()
+  if not base then
+    vim.notify("No default branch found", vim.log.levels.WARN)
+    return
+  end
+  require("gitsigns").diff(base .. "...HEAD", nil, { diff = "unified" })
+end, { desc = "Gitsigns Unified diff vs default branch" })
+map("n", "<leader>dl", function()
+  require("gitsigns").diff("HEAD~..HEAD", nil, { diff = "unified" })
+end, { desc = "Gitsigns Unified diff of last commit" })
+map("n", "<leader>dc", function()
+  -- the panel lives in its own tab; close it from any of its windows, like its `q`
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win)):match "^gitsigns%-diff://" then
+      if #vim.api.nvim_list_tabpages() == 1 then
+        vim.cmd "tabnew | tabprevious"
+      end
+      vim.cmd "tabclose"
+      return
+    end
+  end
+  -- otherwise close a <leader>df view; repeating diffthis toggles it off
+  if require("gitsigns.unified").get_view() then
+    require("gitsigns").diffthis(nil, { unified = true })
+    return
+  end
+  vim.notify("No diff open", vim.log.levels.INFO)
+end, { desc = "Gitsigns Close diff" })
+map("n", "<leader>dH", function()
+  require("gitsigns").blame()
+end, { desc = "Gitsigns Blame buffer" })
 
 -- Terminal
 map("t", "<Esc>", "<C-\\><C-N>", { desc = "terminal escape terminal mode" })

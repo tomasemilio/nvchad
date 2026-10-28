@@ -64,13 +64,6 @@ return {
     end,
   },
   {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
-    opts = function()
-      return require "configs.diffview"
-    end,
-  },
-  {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     opts = function()
