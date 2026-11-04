@@ -19,6 +19,16 @@ M.base46 = {
 		DiffChange = { fg = "NONE", bg = { "blue", "black", 88 } },
 		DiffText = { fg = "NONE", bg = { "blue", "black", 60 } }, -- changed chars within a line
 	},
+
+	-- Gitsigns' changed-word highlights default to reverse video, which paints each
+	-- word in its syntax color (so an added `id` can show up red). Use solid tints:
+	-- green on the new line, red on the removed one. (hl_add: base46 lacks these groups)
+	hl_add = {
+		GitSignsAddInline = { fg = "NONE", bg = { "green", "black", 55 } },
+		GitSignsChangeInline = { fg = "NONE", bg = { "green", "black", 55 } },
+		GitSignsDeleteInline = { fg = "NONE", bg = { "red", "black", 55 } },
+		GitSignsDeleteVirtLnInLine = { fg = "NONE", bg = { "red", "black", 55 } },
+	},
 }
 M.nvdash = { load_on_startup = true }
 M.ui = {
