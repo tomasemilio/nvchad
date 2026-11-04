@@ -46,6 +46,7 @@ The configuration uses Mason for automatic installation of LSP servers, formatte
 ## Key Mappings
 
 - `<C-b>` - Telescope find files
+- `]c` / `[c` - Next/previous change (works in normal buffers and every diff view)
 - `<leader>df` - Toggle unified diff for the current file
 - `<leader>dv` - Unified diff panel of all changes
 - `<leader>dm` - Unified diff panel vs default branch

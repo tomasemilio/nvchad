@@ -23,8 +23,33 @@ map("n", "<leader>re", "<cmd> Telescope registers <cr>", { desc = "Telescope Reg
 map("n", "<leader>ph", "<cmd>Gitsigns preview_hunk<cr>", { desc = "Gitsigns Preview Hunk" })
 map("n", "<leader>rh", "<cmd>Gitsigns reset_hunk<cr>", { desc = "Gitsigns Reset Hunk" })
 map("n", "<leader>gb", "<cmd>Gitsigns blame_line<cr>", { desc = "Gitsigns Blame Line" })
-map("n", "]h", "<cmd>Gitsigns nav_hunk next<cr>", { desc = "Gitsigns Next Hunk" })
-map("n", "[h", "<cmd>Gitsigns nav_hunk prev<cr>", { desc = "Gitsigns Prev Hunk" })
+-- ]c/[c everywhere: side-by-side diffs (incl. `gu` in the review panel) use Vim's
+-- jump, which follows that diff's comparison; elsewhere gitsigns' hunks, which in
+-- the unified review view are the review's own
+-- a window keeps 'diff' after its partner closes, so require a partner too
+local function in_side_by_side_diff()
+  if not vim.wo.diff then
+    return false
+  end
+  local cur = vim.api.nvim_get_current_win()
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if win ~= cur and vim.wo[win].diff then
+      return true
+    end
+  end
+  return false
+end
+local function nav_change(direction)
+  return function()
+    if in_side_by_side_diff() then
+      vim.cmd.normal { vim.v.count1 .. (direction == "next" and "]c" or "[c"), bang = true }
+    else
+      require("gitsigns").nav_hunk(direction)
+    end
+  end
+end
+map("n", "]c", nav_change "next", { desc = "Gitsigns Next change" })
+map("n", "[c", nav_change "prev", { desc = "Gitsigns Prev change" })
 -- on an already-staged hunk this unstages it
 map({ "n", "v" }, "<leader>sh", ":Gitsigns stage_hunk<cr>", { desc = "Gitsigns Stage/Unstage Hunk" })
 
