@@ -64,6 +64,15 @@ return {
     end,
   },
   {
+    "lewis6991/gitsigns.nvim",
+    -- merged into NvChad's gitsigns opts. 'diffopt' has linematch on, which pairs
+    -- each new line with its most similar old one and splits a rewritten block
+    -- into interleaved red/green pieces. Off here, the unified diffs show the whole
+    -- removed block, then the whole added block, like preview_hunk. Side-by-side
+    -- diffs still use 'diffopt', so they keep linematch.
+    opts = { diff_opts = { linematch = 0 } },
+  },
+  {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     opts = function()
